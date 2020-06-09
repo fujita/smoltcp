@@ -100,6 +100,8 @@ mod loopback;
 mod raw_socket;
 #[cfg(all(feature = "phy-tap_interface", target_os = "linux"))]
 mod tap_interface;
+#[cfg(all(feature = "phy-xdp_socket", target_os = "linux"))]
+mod xdp_socket;
 
 #[cfg(all(any(feature = "phy-raw_socket", feature = "phy-tap_interface"), unix))]
 pub use self::sys::wait;
@@ -114,6 +116,8 @@ pub use self::loopback::Loopback;
 pub use self::raw_socket::RawSocket;
 #[cfg(all(feature = "phy-tap_interface", target_os = "linux"))]
 pub use self::tap_interface::TapInterface;
+#[cfg(all(feature = "phy-xdp_socket", target_os = "linux"))]
+pub use self::xdp_socket::XdpSocket;
 
 #[cfg(feature = "ethernet")]
 /// A tracer device for Ethernet frames.

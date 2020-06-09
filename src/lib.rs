@@ -1,6 +1,5 @@
 #![cfg_attr(feature = "alloc", feature(alloc))]
 #![no_std]
-#![deny(unsafe_code)]
 #![cfg_attr(all(any(feature = "proto-ipv4", feature = "proto-ipv6"), feature = "ethernet"), deny(unused))]
 
 //! The _smoltcp_ library is built in a layered structure, with the layers corresponding
@@ -106,6 +105,9 @@ extern crate alloc;
 #[cfg(feature = "log")]
 #[macro_use(trace, debug)]
 extern crate log;
+extern crate afxdp;
+extern crate libbpf_sys;
+extern crate arraydeque;
 
 use core::fmt;
 

@@ -20,6 +20,9 @@ byteorder = { version = "1.0", default-features = false }
 log = { version = "0.4.4", default-features = false, optional = true }
 libc = { version = "0.2.18", optional = true }
 bitflags = { version = "1.0", default-features = false }
+libbpf-sys = { version = "0.0.7-1", optional = true }
+afxdp = { version = "0.2", optional = true,git = "https://github.com/fujita/afxdp-rs.git",rev="3794a8fc73b9d1c6e8172cd325d7ae1fd25d980c" }
+arraydeque = { version = "0.4", optional = true }
 
 [dev-dependencies]
 env_logger = "0.5"
@@ -34,6 +37,7 @@ verbose = []
 ethernet = []
 "phy-raw_socket" = ["std", "libc"]
 "phy-tap_interface" = ["std", "libc"]
+"phy-xdp_socket" = ["std", "libc", "afxdp", "libbpf-sys", "arraydeque"]
 "proto-ipv4" = []
 "proto-igmp" = ["proto-ipv4"]
 "proto-dhcpv4" = ["proto-ipv4", "socket-raw"]
@@ -45,7 +49,7 @@ ethernet = []
 default = [
   "std", "log", # needed for `cargo test --no-default-features --features default` :/
   "ethernet",
-  "phy-raw_socket", "phy-tap_interface",
+  "phy-raw_socket", "phy-tap_interface", "phy-xdp_socket",
   "proto-ipv4", "proto-igmp", "proto-ipv6",
   "socket-raw", "socket-icmp", "socket-udp", "socket-tcp"
 ]
@@ -61,6 +65,10 @@ required-features = ["std"]
 [[example]]
 name = "tcpdump"
 required-features = ["std", "phy-raw_socket", "proto-ipv4"]
+
+[[example]]
+name = "echo_server"
+required-features = ["std", "phy-raw_socket", "phy-xdp_socket", "proto-ipv4"]
 
 [[example]]
 name = "httpclient"
